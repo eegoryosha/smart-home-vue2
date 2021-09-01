@@ -1,0 +1,341 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.df{
+    display: flex;
+}
+.jcc{
+    justify-content: center;
+}
+.aic{
+    align-items: center;
+}
+.fdc{
+    flex-direction: column;
+}
+.font{
+    font-family: Motorola;
+    color: white;
+}
+.screen{
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 10px;
+    background-color: #002834;
+}
+
+.btn{
+    font-family: Motorola;
+    background-color: #003891;
+    border: none;
+    outline: none;
+    color: white;
+    box-shadow: black 0 0 7px 1px;
+    cursor: pointer;
+}
+.btn:hover{
+    box-shadow: none;
+    background-color: #677191;
+}
+.auth-box{
+    background-color: #045891;
+    width: 80%;
+    height: 400px;
+    box-shadow: 0 0 10px 3px;
+}
+.input{
+    width: 70%;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    color: black;
+    font-size: 20px;
+    border: none;
+    box-shadow: black 0 0 5px 1px;
+    padding: 0 5px 0 5px;
+}
+.input:focus{
+    width: 78%;
+}
+.error-box{
+    height: 30px;
+    margin-top: 5px;
+}
+.auth-btn{
+    width: 60%;
+    height: 50px;
+    font-size: 30px;
+}
+.error-text{
+    color: #9f5c28;
+    text-shadow: black 1px 1px 1px;
+}
+.auth-title{
+    font-size: 35px;
+    text-shadow: 1px 1px 1px black, 0 0 5px black;
+    margin: -30px 0 30px 0;
+}
+.screen-header-box{
+    background-color: #045891;
+    box-shadow: 0 0 10px 3px;
+    position: relative;
+    z-index: 10;
+}
+.screen-header{
+    height: 80px;
+}
+.back-btn{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    margin-left: 10px;
+}
+.header-title{
+    margin-left: 15px;
+    font-size: 30px;
+    text-shadow: 1px 1px 1px black, 0 0 5px black;
+}
+.tabs{
+    margin: 0 3px 0 3px;
+}
+.tab{
+    text-shadow: 1px 1px 1px black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0569aa;
+    margin: 0 3px 6px 3px;
+    height: 30px;
+    box-shadow: black 0 0 2px 0px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.active-tab{
+    box-shadow: none;
+    background-color: #043768;
+    transition: 0.4s;
+}
+.container{
+    margin-top: 40px;
+    padding-bottom: 50px;
+}
+.animationOff{
+    position: relative;
+    top: 100px;
+    opacity: 0;
+}
+.overflow{
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 200px;
+}
+.animationOn{
+    opacity: 1;
+    top: 0px;
+    transition: 1s;
+}
+.devices-box{
+    width: 100%;
+}
+.room-title{
+    transition: 0.2s;
+    position: absolute;
+    font-size: 40px;
+    text-shadow: 1px 1px 1px black, 0 0 15px black, 0 0 15px black, 0 0 15px black;
+}
+.room-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 0 10px 1px;
+    border-radius: 15px;
+}
+.room{
+    transition: 0.2s;
+    width: 90%;
+    height: 200px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+.room:hover{
+    color: white;
+    width: 92%;
+    transition: 0.2s;
+    font-size: 45px;
+}
+.room:hover > .room-title{
+    transition: 0.2s;
+    font-size: 43px;
+}
+.devices{
+    flex-flow: row wrap;
+}
+.device{
+    background-color: #045891;
+    box-shadow: 0 0 10px 2px black;
+    width: 30%;
+    text-shadow: 1px 1px 1px black;
+    height: 200px;
+    font-size: 130%;
+    justify-content: space-around;
+    margin: 0 10px 20px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.device:hover{
+    color: #e8be44;
+}
+.device-active{
+    background-color: #ffc451;
+    text-shadow: 1px 1px 1px black, 1px 1px 10px black;
+}
+.device-room-name, .device-value{
+    font-size: 140%;
+}
+.value-btn{
+
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+}
+.value-btn-box{
+    width: 40px;
+    margin: 0 20px 0 20px;
+}
+.devices-room-name{
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 30px;
+    margin-top: -30px;
+}
+.macros{
+    width: 100%;
+    flex-flow: row wrap;
+}
+.macro{
+    width: 80%;
+    justify-content: space-between;
+    margin: 10px 15px 10px 15px;
+}
+.macro-box{
+    background-color: #00495b;
+    width: 80%;
+    padding: 20px 0px 20px 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.macro-btns{
+    display: flex;
+    width: 20%;
+}
+.macro-name{
+    margin-right: 5px;
+}
+.macro-btn-del, .macro-btn-act{
+    width: 40%;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+.macro-btn-del{
+    background-color: #ba0d13;
+}
+.macro-btn-del:hover{
+    background-color: #ce4204;
+}
+.macro-btn-act{
+    background-color: #169400;
+}
+.macro-btn-act:hover{
+    background-color: #16b400;
+}
+.add-macro-btn-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.add-macro-btn{
+    width: 50%;
+    height: 40px;
+    font-size: 20px;
+}
+.new-macro-btns{
+    width: 100%;
+}
+.new-macro-btn{
+    width: 35%;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 0 5px 0 5px;
+}
+.new-macro-input-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.new-macro-btn-ok{
+    width: 60%;
+    transition: 1s;
+}
+.checkbox{
+    width: 20px;
+    height: 20px;
+}
+@font-face {
+    font-family: Motorola;
+    src: url("../fonts/16799.ttf")
+}
+
+@media screen and (max-width: 1024px){
+    .new-macro-btn{
+        width: 40%;
+        height: 35px;
+        border-radius: 10px;
+        font-size: 15px;
+        margin: 0 5px 0 5px;
+    }
+    .device{
+        width: 45%;
+        font-size: 100%;
+        margin: 0 1% 20px 1%;
+    }
+    .device-room-name, .device-value{
+        font-size: 120%;
+    }
+    .macro-box{
+        width: 70%;
+    }
+    .macro-btns{
+        width: 30%;
+    }
+    .macro{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 375px){
+    .new-macro-btn{
+        width: 40%;
+        font-size: 15px;
+    }
+    .device{
+        width: 90%;
+        font-size: 100%;
+        margin: 0 1% 20px 1%;
+    }
+    .device-room-name, .device-value{
+        font-size: 120%;
+    }
+    .macro{
+        width: 90%;
+    }
+    .macro-box{
+        width: 70%;
+    }
+    .macro-btns{
+        width: 30%;
+    }
+}

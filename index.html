@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="app">
+    <!--ЭКРАН АВТОРИЗАЦИИ-->
+    <div class="auth-screen screen df aic jcc" v-if="isOpen('auth-screen')">
+        <div class="auth-box df fdc aic jcc">
+            <div class="auth-title font">ЭКРАН АВТОРИЗАЦИИ</div>
+            <input type="text" placeholder="Логин..." class="input font" v-model="user.login">
+            <div class="error-box">
+                <div class="error-text font" v-if="user.errors.login">
+                    {{user.errors.login.join()}}
+                </div>
+            </div>
+            <input type="password" placeholder="Пароль..." class="input font" v-model="user.password">
+            <div class="error-box">
+                <div class="error-text font" v-if="user.errors.password">
+                    {{user.errors.password.join()}}
+                </div>
+            </div>
+            <button class="auth-btn btn" @click="signIn">Вход</button>
+        </div>
+    </div>
+    <!--ЭКРАН АВТОРИЗАЦИИ-->
+
+    <!--ГЛАВНЫЙ ЭКРАН-->
+    <div class="main-screen screen" v-if="isOpen('main-screen')">
+        <!--ШАПКА ЭКРАНА-->
+        <div class="screen-header-box">
+            <div class="screen-header df aic">
+                <button class="back-btn btn" @click="back"><</button>
+                <div class="header-title font" v-if="activeTab==='first-tab'">Первичный экран</div>
+                <div class="header-title font" v-if="activeTab==='devices-tab'">Устройства и датчики</div>
+                <div class="header-title font" v-if="activeTab==='macros-tab'">Макросы</div>
+            </div>
+            <div class="tabs df aic jcc">
+                <div class="tab font" @click="changeTab('first-tab')" :class="{'active-tab':activeTab==='first-tab'}">ПЕРВИЧНЫЙ ЭКРАН</div>
+                <div class="tab font" @click="changeTab('devices-tab')" :class="{'active-tab':activeTab==='devices-tab'}">УСТРОЙСТВА</div>
+                <div class="tab font" @click="changeTab('macros-tab')" :class="{'active-tab':activeTab==='macros-tab'}">МАКРОСЫ</div>
+            </div>
+        </div>
+        <!--ШАПКА ЭКРАНА-->
+
+        <!--ПЕРВИЧНЫЙ ЭКРАН-->
+        <div class="first-tab container" v-if="activeTab==='first-tab'">
+            <div class="rooms df fdc aic">
+                <room v-for="myRoom in home.rooms" :room="myRoom"></room>
+            </div>
+        </div>
+        <!--ПЕРВИЧНЫЙ ЭКРАН-->
+
+        <!--ЭКРАН УСТРОЙСТВ И ДАТЧИКОВ-->
+        <div class="devices-tab container" v-if="activeTab==='devices-tab'">
+            <div class="overflow">
+                <div class="devices df jcc animationOff" :class="{'animationOn':flagDevices===true}">
+                    <device v-for="myDevice in home.devices" :device="myDevice"></device>
+                </div>
+            </div>
+
+        </div>
+        <!--ЭКРАН УСТРОЙСТВ И ДАТЧИКОВ-->
+
+        <!--ЭКРАН МАКРОСОВ-->
+        <div class="macros-tab container" v-if="activeTab==='macros-tab'">
+            <div class="add-macro-btn-box">
+                <button class="btn add-macro-btn" @click="go('create-new-macro-screen')"> Добавить макрос</button>
+            </div>
+            <div class="macros df jcc">
+                <macro v-for="myMacro in home.macros" :macro="myMacro"></macro>
+            </div>
+        </div>
+        <!--ЭКРАН МАКРОСОВ-->
+    </div>
+    <!--ГЛАВНЫЙ ЭКРАН-->
+
+    <!--ЭКРАН ВЫБРАННОЙ КОМНАТЫ-->
+        <div class="devices-in-room-screen screen" v-if="isOpen('devices-in-room-screen')">
+            <!--ШАПКА ЭКРАНА-->
+            <div class="screen-header-box">
+                <div class="screen-header df aic">
+                    <button class="back-btn btn" @click="back"><</button>
+                    <div class="header-title font" v-if="activeTab==='first-tab'">Первичный экран</div>
+                    <div class="header-title font" v-if="activeTab==='devices-tab'">Устройства и датчики</div>
+                    <div class="header-title font" v-if="activeTab==='macros-tab'">Макросы</div>
+                </div>
+            </div>
+            <!--ШАПКА ЭКРАНА-->
+
+            <!--ДЕВАЙСЫ В ВЫБРАННОЙ КОМНАТЕ-->
+            <div class="devices-box container">
+                <div class="devices-room-name df jcc font">{{room.selectedRoom.name}}</div>
+                <div class="overflow">
+                    <div class="devices df jcc animationOff" :class="{'animationOn':flagDevices===true}">
+                        <device v-for="myDevice in room.devices" :device="myDevice"></device>
+                    </div>
+                </div>
+
+            </div>
+            <!--ДЕВАЙСЫ В ВЫБРАННОЙ КОМНАТЕ-->
+        </div>
+
+        <!--ЭКРАН СОЗДАНИЯ НОВОГО МАКРОСА-->
+        <div class="create-new-macro-screen screen" v-if="isOpen('create-new-macro-screen')">
+            <div class="screen-header-box">
+                <div class="screen-header df aic">
+                    <button class="back-btn btn" @click="back"><</button>
+                    <div class="header-title font" v-if="activeTab==='first-tab'">Первичный экран</div>
+                    <div class="header-title font" v-if="activeTab==='devices-tab'">Устройства и датчики</div>
+                    <div class="header-title font" v-if="activeTab==='macros-tab' || activeTab==='pick-devices-tab' || activeTab==='picked-devices-tab'">Макросы</div>
+                </div>
+            </div>
+            <div class="new-macro container">
+                <div class="new-macro-input-box">
+                    <input type="text" placeholder="Название макроса..." v-model="macro.name" class="input font">
+                </div>
+                <div class="new-macro-btns df jcc">
+                    <button class="new-macro-btn btn" @click="pickDevices" v-if="flagButton===false">Выбрать устройства</button>
+                    <button class="new-macro-btn new-macro-btn-ok btn" @click="macroDeviceList" v-if="flagButton===true">ОК</button>
+                    <button class="new-macro-btn btn" v-if="flagButton===false" @click="createMacro">Создать макрос</button>
+                </div>
+            </div>
+            <!--ВЫБОР ДЕВАЙСОВ-->
+            <div class="pick-devices-tab " v-if="activeTab==='pick-devices-tab'">
+                <div class="devices df jcc">
+                    <div class="device font df fdc aic" v-for="device in home.devices" @click="device.checked=!device.checked">
+                        <div class="device-room-name">{{device.room_name}}</div>
+                        <div class="device-name-box df fdc aic jcc">
+                            <div class="device-name">{{device.name}}</div>
+                            <div class="device-type-name">{{device.type_name}}</div>
+                        </div>
+                        <div class="device-value-box df aic jcc">
+                            <input type="checkbox" v-model="device.checked" class="checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--ВЫБОР ДЕВАЙСОВ-->
+            <div class="pick-devices-tab" v-if="activeTab==='picked-devices-tab'">
+                <div class="devices df jcc">
+                    <div class="device font df fdc aic" @click="toggleValue(device)" v-for="device in macro.devices">
+                        <div class="device-room-name">{{device.room_name}}</div>
+                        <div class="device-name-box df fdc aic jcc">
+                            <div class="device-name">{{device.name}}</div>
+                            <div class="device-type-name">{{device.type_name}}</div>
+                        </div>
+                        <div class="device-value-box df aic jcc">
+                            <div class="value-btn-box">
+                                <button class="value-btn btn" @click="device.value=(~~device.value-1).toString()" v-if="device.typeId==6 && device.value>10">-</button>
+                            </div>
+                            <div class="device-value">{{device.value}}</div>
+                            <div class="value-btn-box">
+                                <button class="value-btn btn" @click="device.value=(~~device.value+1).toString()" v-if="device.typeId==6 && device.value<30">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ЭКРАН СОЗДАНИЯ НОВОГО МАКРОСА-->
+    <!--ЭКРАН ВЫБРАННОЙ КОМНАТЫ-->
+</div>
+
+
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
